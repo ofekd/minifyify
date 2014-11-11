@@ -80,11 +80,12 @@ Shorten the paths you see in the web inspector by defining a compression functio
 ```
 // A typical compressPath function
 compressPath: function (p) {
-  return path.relative('my-app-root', p);
+  return path.relative(compressTarget, path.join(self.basedir, p));
 }
 ```
 
 If a string is provided, it will be used instead of `my-app-root` in the function above. This is useful if you are working from the command line and cannot define a function.
+Please note that due to a breaking change introduced in browserify 6, the path `p` is now relative to the bundle's `basedir` or `process.cwd()` if not specified.
 
 Defaults to a no-op (absolute paths to all source files).
 
